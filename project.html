@@ -1,162 +1,534 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Porjects</title>
-    <style>
-     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects | Anish Bai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --cyan: #00e5ff;
+      --cyan-dim: rgba(0,229,255,0.12);
+      --bg: #080c10;
+      --bg2: #0d1117;
+      --bg3: #141b24;
+      --text: #e8edf2;
+      --muted: #6b7e93;
+      --border: rgba(0,229,255,0.15);
     }
-
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0c0c0c;
-      color: #fff;
-      line-height: 1.6;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg); color: var(--text);
+      cursor: none; overflow-x: hidden;
+    }
+    .cursor {
+      position: fixed; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--cyan);
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s; mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed; width: 38px; height: 38px;
+      border-radius: 50%; border: 1.5px solid var(--cyan);
+      pointer-events: none; z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: all 0.18s ease; opacity: 0.5;
     }
 
-    .container {
-      max-width: 100%;
-      margin: auto;
-      padding: 20px;
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(8,12,16,0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800;
+      color: var(--cyan); letter-spacing: -0.5px; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted); font-size: 0.9rem;
+      font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase;
+      transition: color 0.2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1.5px; background: var(--cyan); transition: width 0.3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--cyan); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 10rem 3rem 5rem;
+      background:
+        radial-gradient(ellipse 50% 60% at 80% 40%, rgba(0,229,255,0.05) 0%, transparent 70%),
+        var(--bg);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .page-hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .page-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem;
+    }
+    .page-tag span { width: 24px; height: 1px; background: var(--cyan); }
+    .page-hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 800; letter-spacing: -2px;
+      line-height: 1.05;
+    }
+    .page-hero h1 em {
+      font-style: normal; color: transparent;
+      -webkit-text-stroke: 1.5px var(--cyan);
+    }
+    .page-hero p {
+      color: var(--muted); font-size: 1.05rem; line-height: 1.7;
+      margin-top: 1.2rem; max-width: 460px;
+    }
+    .page-hero-img {
+      position: relative; display: flex; justify-content: flex-end;
+    }
+    .page-hero-img img {
+      width: 340px; height: 360px; object-fit: cover; object-position: top;
+      border-radius: 8px;
+      filter: grayscale(15%);
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #1e1e1e;
-      padding: 20px;
+    /* PROJECTS SECTION */
+    .projects-section {
+      padding: 5rem 3rem;
+      background: var(--bg2);
+    }
+    .projects-inner { max-width: 1200px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 0.8rem;
+    }
+    .section-tag span { width: 24px; height: 1px; background: var(--cyan); }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 3rem;
+    }
+
+    /* Project cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
       border-radius: 12px;
-      margin-bottom: 40px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,229,255,0.1);
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem; font-weight: 800;
+      color: rgba(0,229,255,0.07);
+      position: absolute; top: 1rem; right: 1.5rem;
+      line-height: 1;
+      transition: color 0.3s;
+    }
+    .project-card:hover .project-num {
+      color: rgba(0,229,255,0.12);
     }
 
-    header h3 {
-      font-size: 28px;
-      color: #00bcd4;
+    .project-icon {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      background: var(--cyan-dim);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem; color: var(--cyan);
+      border: 1px solid var(--border);
     }
-
-    nav a {
-      margin-left: 20px;
+    .project-type {
+      font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 0.5rem;
+    }
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+    .project-desc {
+      color: var(--muted); font-size: 0.92rem; line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+    .project-tags {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .project-tag {
+      font-size: 0.72rem; font-weight: 500;
+      padding: 0.3rem 0.8rem;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.2);
+      border-radius: 50px;
+      color: var(--cyan);
+    }
+    .project-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 1.5rem; padding-top: 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .project-year { font-size: 0.82rem; color: var(--muted); }
+    .project-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: var(--cyan);
       text-decoration: none;
-      color: #fff;
-      font-weight: 500;
-      transition: 0.3s;
+      transition: gap 0.2s;
     }
+    .project-link:hover { gap: 10px; }
 
-    nav a:hover {
-      color: #00bcd4;
+    /* Certs strip */
+    .certs-section {
+      padding: 5rem 3rem;
+      background: var(--bg);
     }
-    .main-section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      padding: 30px;
-      max-width: 1120px;
-      margin-inline: auto;
+    .certs-inner { max-width: 1200px; margin: 0 auto; }
+    .certs-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem; margin-top: 2.5rem;
     }
+    .cert-card {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .cert-card:hover { border-color: var(--cyan); }
+    .cert-icon {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 8px; background: var(--cyan-dim);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 1.1rem;
+    }
+    .cert-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .cert-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
 
-    .main-text {
-      flex: 1;
-      min-width: 300px;
+    /* FOOTER */
+    footer {
+      background: var(--bg2); border-top: 1px solid var(--border);
+      padding: 3rem;
     }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-brand p { color: var(--muted); font-size: 0.88rem; margin-top: 0.4rem; }
+    .footer-socials { display: flex; gap: 1rem; }
+    .social-link {
+      width: 42px; height: 42px; border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); text-decoration: none; font-size: 1rem;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .social-link:hover { border-color: var(--cyan); color: var(--cyan); transform: translateY(-3px); }
+    .footer-bottom {
+      max-width: 1200px; margin: 1.5rem auto 0;
+      padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; color: var(--muted); flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-nav-links { display: flex; gap: 1.5rem; }
+    .footer-nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .footer-nav-links a:hover { color: var(--cyan); }
 
-    .main-text h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-      color: #00bcd4;
-    }
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .main-text p {
-      font-size: 20px;
-      margin-bottom: 25px;
-      text-align: justify;
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .page-hero, .projects-section, .certs-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .page-hero-inner { grid-template-columns: 1fr; }
+      .page-hero-img { justify-content: center; }
+      footer { padding: 2rem 1.5rem; }
     }
-
-    .main-img {
-      flex: 1;
-      text-align: center;
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
     }
-
-    .main-img img {
-      max-width: 300px;
-      border: 3px solid #00bcd4;
-      box-shadow: 0 0 15px rgba(6, 202, 209, 0.6);
-    }
-    .container-box{
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      padding: 30px;
-      max-width: 1120px;
-      margin-inline: auto;
-
-    }
-    .main-box{
-        background-color: #00bcd4;
-        padding: 15px;
-        border-radius:14px;
-        max-width: 270px;
-        color: #0c0c0c;
-        text-align: justify;
-        transition: 0.3s;
-        max-width: 220px;
-    }
-    .main-box h2{
-      text-align: center;
-      color: #fffdfd;
-    }
-   .main-box:hover{
-    color: #00bcd4;
-    background-color: #0c0c0c;
-    box-shadow: 0 0 10px #00bcd4;
-   }
-    </style>
+  </style>
 </head>
 <body>
-    <div class="container">
-    <header>
-      <h3>Anish Bai</h3>
-      <nav>
-        <a href="profile.html">Home</a>
-        <a href="#profile">Profile</a>
-        <a href="project.html">Projects</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </header>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="profile.html" class="nav-logo">AB.</a>
+  <ul class="nav-links">
+    <li><a href="profile.html">Home</a></li>
+    <li><a href="profile.html#profile">About</a></li>
+    <li><a href="project.html" class="active">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div>
+      <div class="page-tag"><span></span> Portfolio</div>
+      <h1>My <em>Projects</em></h1>
+      <p>
+        Work spanning front-end development, UI/UX design, and graphic design —
+        each project a step forward in building meaningful digital experiences.
+      </p>
     </div>
-    <div class="main-section">
-        <div class="main-text">
-            <h1>My Projects</h1>
-            <p>I have worked on projects in front-end web development, UI design with Figma, and graphic design. These projects helped me improve my skills in creating responsive websites, clean user interfaces, and creative visuals.</p>
-        </div>
-        <div class="main-img">
-            <img src="IMG_20250718_141056.JPG" alt="anish projects">
-        </div>  
+    <div class="page-hero-img">
+      <img src="IMG_20250718_141056.JPG" alt="Anish working" />
     </div>
-    <div class="container-box">
-        <div class="main-box">
-          <h2>Project</h2>
-            <h3>Web Designing</h3>
-            <p>Projects using html,js,css</p>
-            <p>2025</p>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="projects-section">
+  <div class="projects-inner">
+    <div class="section-tag reveal"><span></span> Work</div>
+    <h2 class="section-title reveal">Featured Projects</h2>
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-num">01</div>
+        <div class="project-icon"><i class="fas fa-globe"></i></div>
+        <div class="project-type">Web Development</div>
+        <h3 class="project-title">Responsive Portfolio Website</h3>
+        <p class="project-desc">
+          Built a fully responsive personal portfolio using HTML, CSS and vanilla JavaScript.
+          Includes smooth scroll, animated sections, mobile-first layout and cross-browser support.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">HTML5</span>
+          <span class="project-tag">CSS3</span>
+          <span class="project-tag">JavaScript</span>
         </div>
-        <div class="main-box">
-          <h2>Project</h2>
-            <h3>UI design with Figma</h3>
-            <p>Project using Figma Design</p>
-            <p>2025</p>
+        <div class="project-footer">
+          <span class="project-year">2025</span>
+          <a href="#" class="project-link">View <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="main-box">
-          <h2>Project</h2>
-            <h3>Graphic Design</h3>
-            <p>Projects Using canva and photoshop</p>
-            <p>2025</p>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">02</div>
+        <div class="project-icon"><i class="fas fa-store"></i></div>
+        <div class="project-type">Web Development</div>
+        <h3 class="project-title">E-Commerce Front End</h3>
+        <p class="project-desc">
+          Designed and coded an e-commerce product listing page with cart functionality,
+          product filtering, and responsive grid layout — built during internship at Cyber Core Technology.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">HTML5</span>
+          <span class="project-tag">CSS3</span>
+          <span class="project-tag">JavaScript</span>
         </div>
-     </div>
+        <div class="project-footer">
+          <span class="project-year">2025</span>
+          <a href="#" class="project-link">View <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03</div>
+        <div class="project-icon"><i class="fa-brands fa-figma"></i></div>
+        <div class="project-type">UI / UX Design</div>
+        <h3 class="project-title">App UI Design – Figma</h3>
+        <p class="project-desc">
+          Created clean, user-centred mobile app UI mockups in Figma including wireframes,
+          component library, typography system, and interactive prototype for a food delivery app.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Figma</span>
+          <span class="project-tag">UI Design</span>
+          <span class="project-tag">Prototyping</span>
+        </div>
+        <div class="project-footer">
+          <span class="project-year">2025</span>
+          <a href="#" class="project-link">View <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">04</div>
+        <div class="project-icon"><i class="fas fa-palette"></i></div>
+        <div class="project-type">Graphic Design</div>
+        <h3 class="project-title">Graphic Design Collection</h3>
+        <p class="project-desc">
+          Social media graphics, posters and brand identity assets created using Canva and
+          Adobe Photoshop. Work includes event posters for Rotaract Club campaigns.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Canva</span>
+          <span class="project-tag">Branding</span>
+        </div>
+        <div class="project-footer">
+          <span class="project-year">2025</span>
+          <a href="#" class="project-link">View <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">05</div>
+        <div class="project-icon"><i class="fas fa-layout"></i></div>
+        <div class="project-type">Web Development</div>
+        <h3 class="project-title">5+ Responsive Web Pages</h3>
+        <p class="project-desc">
+          During my 45-day internship, built 5+ responsive web pages with full cross-browser
+          compatibility, semantic HTML, clean CSS architecture and interactive JS components.
+        </p>
+        <div class="project-tags">
+          <span class="project-tag">HTML5</span>
+          <span class="project-tag">CSS3</span>
+          <span class="project-tag">JavaScript</span>
+          <span class="project-tag">Internship</span>
+        </div>
+        <div class="project-footer">
+          <span class="project-year">2025</span>
+          <a href="#" class="project-link">View <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <div class="certs-inner">
+    <div class="section-tag reveal"><span></span> Achievements</div>
+    <h2 class="section-title reveal">Certifications & Awards</h2>
+    <div class="certs-grid">
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+        <div>
+          <div class="cert-title">Tech Trail Blazer Workshop</div>
+          <div class="cert-sub">Certification in Photoshop, Web Designing & WordPress · GJIMT</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-briefcase"></i></div>
+        <div>
+          <div class="cert-title">PRW Workshop</div>
+          <div class="cert-sub">Professional Readiness Workshop · 30 hrs · GJIMT · Jul 2025</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-trophy"></i></div>
+        <div>
+          <div class="cert-title">2nd Position — Athletics</div>
+          <div class="cert-sub">Sports competition organised by Decathlon</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <div class="cert-icon"><i class="fas fa-users"></i></div>
+        <div>
+          <div class="cert-title">Image Chair — Rotaract Club</div>
+          <div class="cert-sub">Led blood donation, sanitary napkins awareness & toy donation drives</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="profile.html" class="nav-logo" style="font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;color:var(--cyan);text-decoration:none;">AB.</a>
+      <p>Aspiring Frontend Developer · Chandigarh, India</p>
+    </div>
+    <div class="footer-socials">
+      <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+      <a href="https://github.com/" class="social-link"><i class="fab fa-github"></i></a>
+      <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Anish Bai. All rights reserved.</span>
+    <div class="footer-nav-links">
+      <a href="profile.html">Home</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px'; cursor.style.top  = e.clientY + 'px';
+    setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top  = e.clientY + 'px'; }, 60);
+  });
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.transform   = 'translate(-50%,-50%) scale(1.4)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.transform   = 'translate(-50%,-50%) scale(1)';
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.style.transitionDelay = (i % 4) * 0.1 + 's';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
